@@ -32,11 +32,11 @@ https://docs.espressif.com/projects/esp-idf/en/v5.3.1/esp32/get-started/linux-ma
 The steps will install the macOS prerequisites, the use git to download the idf v5.3.1 sdk, and set up environment variables need to run the sdk.
 In step 3, when you run the ./install.sh, don't add the esp32 parameter.  That will only install esp32, not esp32c6.  Don't add a param for it to install all
 
-> ./install.sh
+`./install.sh`
 
 You should finish with
 
-> source ./export.sh
+`source ./export.sh`
 
 That adds environment variables needed by the SDK.
 
@@ -58,53 +58,55 @@ When flashing with both devices connected, you will need to specify the serial p
 
 On WSL2 using USB/IP, these are: 
 
-> /dev/ttyUSBX
+`/dev/ttyUSBX`
 
 Based on my research (not having a mac), on mac, the ports should be something like:
 
-> /dev/tty.usbmodemXXXX
+`/dev/tty.usbmodemXXXX`
 
 ### Building and CLI example
 
-> cd  examples/openthread/ot_cli
+`cd  examples/openthread/ot_cli`
 
 Look over the README.md file to get an overview of the steps:
 
-> less README.md
+`less README.md`
 
 We're skipping some unnecessary steps. No need for the menuconfig step unless you need to change defaults, or use JTAG.
 
 Now lets build. First set the MCU type
 
-> idf.py set-target esp32c6
+`idf.py set-target esp32c6`
 
 Next, build the project
 
-> idf.py build
+`idf.py build`
 
 ### Flashing MCU 1 and activating the thread system
 
 Flash the MCU and then run serial monitor.  This will give you tty access to the CLI.
 
->  idf.py -p PORT_MCU1 flash monitor
+`idf.py -p PORT_MCU1 flash monitor`
 
 You should now have access to the CLI.  Set up the Thread network.
 
-> factoryreset
-> dataset init new
-> dataset commit active
-> ifconfig up
-> thread start
+```
+factoryreset
+dataset init new
+dataset commit active
+ifconfig up
+thread start
+```
 
 Wait a few seconds then run
 
-> state
+`state`
 
 The response should be "leader".  
 
 Now we need to save some information that we will give to MCU2 when we set that up on the same network.  We will get the IPv6 addresses and the dataset in hex to cut and past into MCU2 later.
 
-> ip print
+`ip print`
 
 Output will contain the ip addresses:
 
@@ -128,7 +130,7 @@ The address that worked for me is the one suffixed by "16"
 
 Get the Active Dataset
 
-> dataset active -x
+`dataset active -x`
 
 Output will contain the hex representation of the dataset.  You'll need this later.
 
@@ -142,14 +144,16 @@ In your other terminal window, make sure you source ./export.sh in ./esp-idf.  C
 
 Flash and start serial monitor
 
-> idf.py -p PORT_MCU2 flash monitor
+`idf.py -p PORT_MCU2 flash monitor`
 
 You should now have access to the CLI.  Set up the Thread network.  We'll be using MCU1's hex representation of its dataset.
 
-> factoryreset
-> dataset set active 0e080000000000010000000300001835060004001fffe00208fe................
-> ifconfig up
-> thread start
+```
+factoryreset
+dataset set active 0e080000000000010000000300001835060004001fffe00208fe................
+ifconfig up
+thread start
+```
 
 Wait for a bit and you should see a log message like:
 
@@ -172,8 +176,10 @@ We will run the socket server on MCU1 and the client on MCU2.
 
 Open the tcpsockserver and bind to port 12345
 
-> tcpsockserver open
-> tcpsockserver bind :: 12345
+```
+tcpsockserver open
+tcpsockserver bind :: 12345
+```
 
 You should see log messages like:
 
@@ -190,8 +196,10 @@ I(389660) OPENTHREAD:[N] RouterTable---: Allocate router id 39
 We will open the tcpsockclient on MCU2 and connect it to MCU1 on port 12345.  Replace ADDRESS with one of the IPv6 addresses on MCU1. I had to try more than one address before it worked, you may need to as well.
 The address that worked for me is the one suffixed by "16"
 
-> tcpsockclient open
-> tcpsockclient connect ADDRESS 12345
+```
+tcpsockclient open
+tcpsockclient connect ADDRESS 12345
+```
 
 If it worked, you should see log messages:
 
@@ -210,7 +218,7 @@ I (1078897) ot_ext_cli: Fail to create TCP client
 
 Once it is connected, let's send Hello_World!
 
-> tcpsockclient send Hello_World
+`tcpsockclient send Hello_World`
 
 Note: If you want to send a message with spaces in it, you'll need to use backslash as an escape.  Eg Hello\ World
 
@@ -218,7 +226,7 @@ Note: If you want to send a message with spaces in it, you'll need to use backsl
 
 You can send a message back to the client:
 
-> tcpsockserver send Thread\ Rules
+`tcpsockserver send Thread\ Rules`
 
 In your MCU2 window, you should see logs like:
 
