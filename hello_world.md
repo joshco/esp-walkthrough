@@ -68,7 +68,7 @@ Based on my research (not having a mac), on mac, the ports should be something l
 
 `/dev/tty.usbmodemXXXX`
 
-### Building and CLI example
+###  Building the OpenThread CLI example
 
 ```
 cd  examples/openthread/ot_cli
