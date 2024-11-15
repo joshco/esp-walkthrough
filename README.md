@@ -1,4 +1,4 @@
-# OpenThrad Walkthroughs
+# OpenThread Walkthroughs
 
 ## Hello World
 
