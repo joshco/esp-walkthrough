@@ -11,7 +11,7 @@ This walkthrough will guide you through:
 5. Running tcpsockserver on MCU 1 and tcpsockclient on MCU 2 and sending Hello_World messages back and forth
 
 ### Toolchain
-I tried Vscode/platformio and the espressif vscode extension. They worked except for openthread examples.  I decided to start with the espressif SDK. This walkthrough is pretty smooth. The issues I ran into were Windows WSL related. If you are using WSL2 and have trouble with USB/IP, contact me. I haven't done it on a Mac, so we'll see what happens.
+I tried Vscode/platformio and the espressif vscode extension. They worked except for openthread examples.  I decided to start with the espressif SDK. This walkthrough is pretty smooth. The issues I ran into were Windows WSL related. If you are using WSL2 you'll need [USB/IP](https://github.com/dorssel/usbipd-win/wiki/WSL-support). I haven't done it on a Mac, but it seems straightforward according to the guide I cribbed from.
 
 ### Hardware requirements
 2 esp32c6 microcontrollers. These are the type we used at the hackathon
