@@ -1,7 +1,7 @@
 # Arduino ESP32 OpenThread Example
 
 The Arduino ESP32 core has now included OpenThread and built in examples which can be accesed from the Arduino IDE, referred to as IDE below.
-This walkthrough will take you through adding the board manager for ESP32 and running the Thread Scan example. Once running, this will scan and list all thread networks and devices.  This walkthrough assumes you are using an ESP32c6 microcontroller.
+This walkthrough will take you through adding the board manager for ESP32 and running the Thread Scan example. Once running, this will scan and list all thread networks and devices.  This walkthrough assumes you are using an ESP32c6 microcontroller.  These can be bought from Amazon for $9/each at https://www.amazon.com/dp/B0BRMSDR4R
 
 ## Steps
 
