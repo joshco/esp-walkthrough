@@ -8,7 +8,7 @@ This walkthrough will take you through adding the board manager for ESP32 and ru
 1. Set up IDE
 2. Add board manager
 3. Open Thread Scan example
-4. Run and display
+4. Run and display nearby Thread devices
 
 ## Setup Arduino IDE
 
